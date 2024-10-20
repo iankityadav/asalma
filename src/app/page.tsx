@@ -20,10 +20,16 @@ export default function Home() {
         </div>
       </div>
       <div className="grid grid-cols-2 text-center gap-6 text-white">
-        <Link className="bg-blue-400 rounded-md py-1" href={"/assets"}>
+        <Link
+          className="bg-blue-400 hover:bg-white border-2 border-blue-400 rounded-md py-1 hover:text-blue-800"
+          href={"/assets"}
+        >
           Assets
         </Link>
-        <Link className="bg-blue-400 rounded-md px-4 py-1" href={"/employees"}>
+        <Link
+          className="bg-blue-400 hover:bg-white border-2 border-blue-400 rounded-md px-4 py-1 hover:text-blue-800"
+          href={"/employees"}
+        >
           Employees
         </Link>
       </div>
