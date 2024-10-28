@@ -1,6 +1,12 @@
-import React from "react";
+"use client";
+import { useLazyGetAssetsQuery } from "@/store/assets/assets.endpoint";
+import { useEffect } from "react";
 
 const AssetsPage = () => {
+  const [getAssets, { data }] = useLazyGetAssetsQuery();
+  useEffect(() => {
+    getAssets({});
+  });
   return (
     <div className="flex flex-col items-center justify-items-center gap-8">
       <div className="flex flex-col p-4 mt-8 bg-white max-w-[720px] w-full rounded-md shadow-lg">
@@ -48,12 +54,33 @@ const AssetsPage = () => {
         </div>
       </div>
       <div className="grid grid-cols-3 justify-center items-center p-4 bg-white max-w-[720px] w-full rounded-md shadow-lg gap-3">
-        <div className="w-full border-2 border-blue-200 rounded-md max-w-[220px] p-2">
-          <div className="font-semibold">Asset name</div>
-          <div className="text-sm">Asset Type</div>
-          <div className="text-sm">Assigned</div>
-        </div>
+        {data?.map((el: Asset, i: number) => (
+          <AssetInfo
+            key={i}
+            name={el.name}
+            type={el.type}
+            assignedTo={el.assignedTo}
+            assignedDate={el.assignedDate}
+          />
+        ))}
       </div>
+    </div>
+  );
+};
+type Asset = {
+  name: string;
+  type: string;
+  assignedTo: string;
+  assignedDate: string;
+};
+
+const AssetInfo = ({ name, type, assignedTo, assignedDate }: Asset) => {
+  return (
+    <div className="w-full border-2 border-blue-200 rounded-md max-w-[220px] p-2">
+      <div className="font-semibold">{name}</div>
+      <div className="text-sm">{type}</div>
+      <div className="text-sm">Assigned to: {assignedTo}</div>
+      <div className="text-sm">Assigned on: {assignedDate}</div>
     </div>
   );
 };
